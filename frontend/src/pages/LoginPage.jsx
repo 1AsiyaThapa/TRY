@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BASE_URL } from '../utils/api'
 
 const GoogleIcon = () => (
   <svg width="18" height="18" viewBox="0 0 48 48">
@@ -24,7 +25,7 @@ export default function LoginPage() {
     setLoading(true)
     setError('')
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      const res = await fetch(`${BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -55,7 +56,7 @@ export default function LoginPage() {
 
           {/* Google */}
           <a
-            href="http://localhost:5000/api/auth/google"
+            href={`${BASE_URL}/api/auth/google`}
             className="flex items-center justify-center gap-3 w-full border border-gray-200 rounded-xl py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
           >
             <GoogleIcon />

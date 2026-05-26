@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BASE_URL } from '../utils/api'
 
 const rules = [
   { label: 'At least 8 characters', test: (p) => p.length >= 8 },
@@ -67,7 +68,7 @@ export default function SignupPage() {
     setLoading(true)
     setError('')
     try {
-      const res = await fetch('http://localhost:5000/api/auth/signup', {
+      const res = await fetch(`${BASE_URL}/api/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: form.name, email: form.email, password: form.password }),
@@ -87,7 +88,7 @@ export default function SignupPage() {
     setLoading(true)
     setError('')
     try {
-      const res = await fetch('http://localhost:5000/api/auth/verify-email', {
+      const res = await fetch(`${BASE_URL}/api/auth/verify-email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: form.email, otp }),
@@ -107,7 +108,7 @@ export default function SignupPage() {
     setLoading(true)
     setError('')
     try {
-      const res = await fetch('http://localhost:5000/api/auth/signup', {
+      const res = await fetch(`${BASE_URL}/api/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: form.name, email: form.email, password: form.password }),
@@ -140,7 +141,7 @@ export default function SignupPage() {
 
               {/* Google button at top */}
               <a
-                href="http://localhost:5000/api/auth/google"
+                href={`${BASE_URL}/api/auth/google`}
                 className="flex items-center justify-center gap-3 w-full border border-gray-200 rounded-xl py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
               >
                 <GoogleIcon />

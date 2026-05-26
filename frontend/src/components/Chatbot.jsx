@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { BASE_URL } from '../utils/api'
 
 const suggestions = [
   'How am I doing financially?',
@@ -58,7 +59,7 @@ export default function Chatbot() {
       const token = localStorage.getItem('token')
       const history = newMessages.slice(1, -1).map(m => ({ role: m.role, text: m.text }))
 
-      const res = await fetch('http://localhost:5000/api/chat', {
+      const res = await fetch(`${BASE_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ message: userMsg, history }),

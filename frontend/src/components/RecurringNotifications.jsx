@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
+import { BASE_URL } from '../utils/api'
 
 const API = (path, options = {}) => {
   const token = localStorage.getItem('token')
-  return fetch(`http://localhost:5000${path}`, {
+  return fetch(`${BASE_URL}${path}`, {
     ...options,
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, ...options.headers },
   })

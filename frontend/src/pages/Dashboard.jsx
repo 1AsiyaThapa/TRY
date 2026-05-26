@@ -9,6 +9,7 @@ import RecurringNotifications from '../components/RecurringNotifications'
 import BudgetAlert from '../components/BudgetAlert'
 import { IncomeVsExpenseChart } from '../components/TransactionCharts'
 import { requestNotificationPermission } from '../utils/pushNotification'
+import { BASE_URL } from '../utils/api'
 
 const navItems = [
   { label: 'Overview' },
@@ -20,7 +21,7 @@ const navItems = [
 
 const API = (path) => {
   const token = localStorage.getItem('token')
-  return fetch(`http://localhost:5000${path}`, {
+  return fetch(`${BASE_URL}${path}`, {
     headers: { Authorization: `Bearer ${token}` },
   })
 }
@@ -50,7 +51,7 @@ export default function Dashboard() {
       setUser(payload)
       requestNotificationPermission()
       // Fetch full profile to get avatar
-      fetch('http://localhost:5000/api/profile', {
+      fetch(`${BASE_URL}/api/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       }).then(r => r.json()).then(p => setUser(prev => ({ ...prev, avatar: p.avatar, name: p.name })))
     } catch {
@@ -87,7 +88,7 @@ export default function Dashboard() {
 
         // Fetch overall budget for current month
         const currentMonth = new Date().toISOString().slice(0, 7)
-        const budgetRes = await fetch(`http://localhost:5000/api/budgets?month=${currentMonth}`, {
+        const budgetRes = await fetch(`${BASE_URL}/api/budgets?month=${currentMonth}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         })
         if (budgetRes.ok) {

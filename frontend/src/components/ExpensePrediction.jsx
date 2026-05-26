@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import { BASE_URL } from '../utils/api'
 
 const API = (path) => {
   const token = localStorage.getItem('token')
-  return fetch(`http://localhost:5000${path}`, {
+  return fetch(`${BASE_URL}${path}`, {
     headers: { Authorization: `Bearer ${token}` },
   })
 }
