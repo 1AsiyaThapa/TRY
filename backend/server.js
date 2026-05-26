@@ -57,12 +57,13 @@ app.use('/api/profile', profileRoutes)
 
 const PORT = process.env.PORT || 5000
 
+// Start server immediately so Render detects the open port
+app.listen(PORT, '0.0.0.0', () =>
+  console.log(`Server running on port ${PORT}`)
+)
+
+// Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log('MongoDB connected')
-    app.listen(PORT, '0.0.0.0', () =>
-      console.log(`Server running on port ${PORT}`)
-    )
-  })
+  .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('DB connection error:', err))
