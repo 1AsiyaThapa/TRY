@@ -16,15 +16,29 @@ import predictionRoutes from './routes/prediction.js'
 import budgetRoutes from './routes/budgets.js'
 import profileRoutes from './routes/profile.js'
 
+// Log env vars presence (not values) to help debug
+console.log('ENV CHECK:', {
+  MONGO_URI: !!process.env.MONGO_URI,
+  JWT_SECRET: !!process.env.JWT_SECRET,
+  GOOGLE_CLIENT_ID: !!process.env.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: !!process.env.GOOGLE_CLIENT_SECRET,
+  CLIENT_URL: process.env.CLIENT_URL,
+  PORT: process.env.PORT,
+})
+
 // Init passport AFTER dotenv has loaded
-initPassport()
+try {
+  initPassport()
+} catch (err) {
+  console.error('Passport init error:', err.message)
+}
 
 const app = express()
 
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }))
 app.use(express.json())
 app.use(session({
-  secret: process.env.JWT_SECRET,
+  secret: process.env.JWT_SECRET || 'fallback-secret',
   resave: false,
   saveUninitialized: false,
 }))
